@@ -1,0 +1,13 @@
+package Cmd;
+
+// 游戏相关协议
+enum Command
+{
+    Command_DreamCommon = 1;    // 公共协议
+    Command_Server      = 2;    // 游戏协议
+    Command_Room        = 3;    // 房间协议
+    Command_Friend      = 4;    // 好友协议 
+    Command_NbChat      = 5;    // 公共聊天
+    Command_Card        = 6;    // 卡牌协议
+    Command_Mail 		= 7; 	// 邮件协议
+}

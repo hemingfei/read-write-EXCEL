@@ -1,0 +1,163 @@
+package Cmd;
+import "dreamcommon.proto";
+
+message Friend
+{
+    enum Param
+    {
+        FriendListCmd_C     = 1; //好友列表
+        FriendListCmd_S     = 2; //好友回复
+        FavourListCmd_C     = 3; //点赞列表
+        FavourListCmd_S     = 4; //点赞回复
+        GetFriendChatCmd_C  = 5; //获取好友聊天信息
+        GetFriendChatCmd_S  = 6; //获取好友聊天回复
+        FriendChatCmd_C     = 7; //好友聊天
+        FriendChatCmd_Brd   = 8; //好友聊天广播
+        FriendChatCmd_S     = 9; //好友聊天回复
+        FriendSearchAddCmd_C    = 10; //搜索添加好友
+        FriendSearchAddCmd_S    = 11; //搜索添加好友回复
+        GetFriendApplyListCmd_C = 12; //获取好友申请列表
+        GetFriendApplyListCmd_S = 13; //获取好友申请列表回复
+        FriendOptionCmd_C       = 14; //申请好友操作
+        FriendOptionCmd_S       = 15; //申请好友操作回复
+        FriendApplyNotifyCmd_Brd= 16; //好友申请通知
+        FriendGiveFavourCmd_C   = 17; //给玩家点赞
+        FriendGiveFavourCmd_S   = 18; //给玩家点赞回复
+        FriendRemoveCmd_C       = 19; //请求解除好友
+        FriendRemoveCmd_S       = 20; //请求解除好友回复
+    }
+}
+
+
+/*---------------------------------------------------
+---------------------游戏协议开始--------------------
+----------------------------------------------------*/
+
+// 1 获取好友列表
+message FriendListCmd_C
+{
+    optional uint32 page        = 1; //分页 防止数据量过大
+    optional uint32 num         = 2; //每页多少个好友数据
+}
+
+// 2 获取好友列表返回
+message FriendListCmd_S
+{
+    optional uint32     errCode     = 1; //错误码，成功不返回
+    repeated FriendData friendData  = 2; //好友列表数据
+}
+
+// 3 获取点赞列表
+message FavourListCmd_C
+{
+    optional uint32 page = 1; //分页 防止数据量过大
+    optional uint32 num  = 2; //每页多少个点赞数据
+}
+
+// 4 获取点赞列表返回
+message FavourListCmd_S
+{
+    optional uint32     errCode     = 1; //错误码，成功不返回
+    repeated FavourData favourData  = 2; //点赞列表数据
+}
+
+// 5 获取好友聊天信息
+message GetFriendChatCmd_C
+{
+    optional uint64     friendUid   = 1; //好友UID
+}
+
+// 6 获取好友聊天信息返回
+message GetFriendChatCmd_S
+{
+    optional uint32         errCode     = 1; //错误码，成功不返回
+    repeated FriendChatData chatData    = 2; //聊天数据
+}
+
+// 7 好友聊天
+message FriendChatCmd_C
+{
+    optional uint64 friendUid   = 1; //好友UID
+    optional string chatMsg     = 2; //聊天信息
+}
+
+// 8 好友聊天返回
+message FriendChatCmd_S
+{
+    optional uint32 errCode = 1; //错误码，成功不返回
+}
+
+// 9 好友聊天广播 仅广播一人
+message FriendChatCmd_Brd
+{
+    optional FriendChatData chatData = 1; //聊天数据
+}
+
+// 10 添加好友
+message FriendSearchAddCmd_C
+{
+    optional string nickname = 1; //搜索好友名称
+}
+
+// 11 添加好友返回
+message FriendSearchAddCmd_S
+{
+    optional uint32 errCode = 1; //错误码，成功不返回
+}
+
+// 12 好友申请列表
+message GetFriendApplyListCmd_C
+{
+    optional uint32 page = 1; //分页，防止数据量过大
+    optional uint32 num  = 2; //每页数量
+}
+
+// 13 好友申请列表返回
+message GetFriendApplyListCmd_S
+{
+    optional uint32     errCode         = 1; //错误码，成功不返回
+    repeated FriendApplyData applyData  = 2; //申请列表
+}
+
+// 14 好友申请操作
+message FriendOptionCmd_C
+{
+    optional uint32 optype      = 1; //操作类型 FRIEND_OPTION
+    optional uint64 applyuid    = 2; //申请人UID
+}
+
+// 15 好友申请操作返回
+message FriendOptionCmd_S
+{
+    optional uint32 errCode = 1; //错误码，成功不返回
+}
+
+// 16 收到好友申请通知 仅广播好友一人
+message FriendApplyNotifyCmd_Brd
+{
+    optional FriendApplyData applyData = 1; //好友申请信息
+}
+
+// 17 给玩家点赞 当好友处理
+message FriendGiveFavourCmd_C
+{
+    optional uint64 favouruid = 1; //被点赞的玩家UID
+}
+
+// 18 点赞返回
+message FriendGiveFavourCmd_S
+{
+    optional uint32 errCode = 1; //错误码，成功不返回
+}
+
+// 19 解除好友关系
+message FriendRemoveCmd_C
+{
+    optional uint64 friendUid = 1; //解除好友uid
+}
+
+// 20 解除好友关系回复
+message FriendRemoveCmd_S
+{
+    optional uint32 errCode = 1; //错误码，成功不返回
+}

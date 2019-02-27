@@ -1,0 +1,54 @@
+package Cmd;
+import "dreamcommon.proto";
+
+message Room 
+{
+    enum Param
+    {
+        EnterMapRoomCmd_C   = 1; //请求进入地图房间
+        EnterMapRoomCmd_S   = 2; //请求进入房间回复
+        GameStartNotifyCmd_Brd  = 3; //battle开始消息推送
+        LeaveMapRoomCmd_C   = 4; //离开地图房间请求
+        LeaveMapRoomCmd_S   = 5; //离开地图房间回复
+        EnterMapRoomCmd_Brd = 6; //进入房间广播
+    }
+}
+
+// 1 请求进入房间
+message EnterMapRoomCmd_C
+{
+}
+
+// 2 请求进入房间返回
+message EnterMapRoomCmd_S
+{
+    optional uint32         errCode         = 1; //错误码，成功不返回
+    // repeated CardProperty   ownCardProp     = 2; //玩家出战卡牌属性
+    // repeated CardProperty   otherCardProp   = 3; //对方玩家出战卡牌属性
+}
+
+// 3
+message EnterMapRoomCmd_Brd
+{
+    optional uint32     uid         = 1;
+    optional string     nickName    = 2;
+    optional uint32     seatId      = 3;
+    repeated uint32     seatList    = 4;   //房间当前已经有人的座位ID   
+}
+
+// 4 战斗
+message GameStartNotifyCmd_Brd
+{
+    repeated UserCardProperty   userCardProp    = 1; // 每个玩家的卡牌属性
+}
+
+// 5 离开地图房间请求
+message LeaveMapRoomCmd_C
+{
+}
+
+// 6 离开地图房间回复
+message LeaveMapRoomCmd_S
+{
+    optional uint32 errCode = 1; //错误码，成功不返回
+}

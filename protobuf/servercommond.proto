@@ -1,0 +1,110 @@
+package Cmd;
+import "dreamcommon.proto";
+
+//游戏相关的协议 
+message Server
+{
+    enum Param
+    {
+        UserLoginGameCmd_C  = 1; //玩家登录
+        UserLoginGameCmd_S  = 2; //登录返回
+        EnterShopCmd_C      = 3; //请求进入商店
+        EnterShopCmd_S      = 4; 
+        ShopBuyCmd_C        = 5; //请求购买商品
+        ShopBuyCmd_S        = 6;
+        SetupMapIdCmd_C     = 7; //设置玩家地图ID
+        SetupMapIdCmd_S     = 8; //设置玩家地图ID回复
+        SetupPropertyCmd_C  = 9; //设置玩家属性
+        SetupPropertyCmd_S  = 10;//设置玩家属性回复
+        UserPropertyChangedCmd_SC = 11; //玩家属性变化通知
+    }
+}
+
+
+/*---------------------------------------------------
+---------------------游戏协议开始--------------------
+----------------------------------------------------*/
+
+// 1 玩家请求登录游戏
+message UserLoginGameCmd_C
+{
+    
+}
+
+// 2 登录游戏返回
+message UserLoginGameCmd_S
+{
+    optional uint32         errCode         = 1; //错误码，成功不返回
+    optional UserBaseData   userData        = 2; //玩家数据
+}
+
+
+// 3 商店相关
+message EnterShopCmd_C
+{
+}
+
+// 4
+message EnterShopCmd_S
+{
+    optional uint32     errCode     = 1; //错误码，成功不返回
+    repeated ShopData   shopData    = 2; //商品列表
+}
+
+// 5
+message ShopBuyCmd_C
+{
+    optional uint32 shopId      = 1; //商品Id
+}
+
+// 6
+message ShopBuyCmd_S
+{
+    optional uint32 errCode         = 1; //错误码，成功不返回
+}
+
+
+// 7 获取任务
+message TaskReceiveCmd_C
+{
+    optional uint32 taskId      = 1; //任务ID
+}
+
+// 8 获取任务任务返回
+message TaskReceiveCmd_S
+{
+    optional uint32 errCode     = 1; //错误码，成功不返回
+}
+
+// 9 设置玩家地图ID
+message SetupMapIdCmd_C
+{
+    optional uint32 mapId = 1; //设置的地图ID
+}
+
+// 10 设置玩家地图ID回复
+message SetupMapIdCmd_S
+{
+    optional uint32 errCode = 1; //错误码，成功不返回
+}
+
+// 11 设置玩家属性
+message SetupPropertyCmd_C
+{
+    optional uint64 uid     = 1; //玩家uid
+    optional uint32 typ     = 2; //设置属性类型 1-金币 2-宝石
+    optional uint64 number  = 3; //设置的数量
+}
+
+// 12 设置玩家属性返回
+message SetupPropertyCmd_S 
+{
+    optional uint32 errCode = 1; //错误码，成功默认为0
+}
+
+// 13 玩家属性变化通知
+message UserPropertyChangedCmd_SC
+{
+    optional uint32 typ     = 1; //属性类型 1-金币 2-宝石
+    optional uint64 number  = 2; //变化后的属性值
+}

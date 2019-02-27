@@ -1,0 +1,184 @@
+package Cmd;
+import "dreamcommon.proto";
+
+// 卡牌系统相关协议
+message Card
+{
+    enum Param
+    {
+        GetLabCardDataCmd_C     = 1;    //获取实验室卡牌列表
+        GetLabCardDataCmd_S     = 2;    //获取实验室卡牌列表回复
+        GetLabCardAttributeCmd_C= 3;    //获取实验室卡牌属性
+        GetLabCardAttributeCmd_S= 4;    //获取实验室卡牌属性回复
+        GetLabCardSkinCmd_C     = 5;    //获取实验室卡牌皮肤
+        GetLabCardSkinCmd_S     = 6;    //获取实验室卡牌皮肤回复
+        GetLabCardMountCmd_C    = 7;    //获取实验室卡牌挂载
+        GetLabCardMountCmd_S    = 8;    //获取实验室卡牌挂载回复
+        GetLabCardRecordCmd_C   = 9;    //获取实验室卡牌录音
+        GetLabCardRecordCmd_S   = 10;   //获取实验室卡牌录音回复
+        GetLabCardFruitCmd_C    = 11;   //获取实验室幻化果实
+        GetLabCardFruitCmd_S    = 12;   //获取实验室幻化果实回复
+        LabCardUpgradeCmd_C     = 13;   //请求升级卡牌
+        LabCardUpgradeCmd_S     = 14;   //请求升级卡牌回复
+        LabCardEnhanceCmd_C     = 15;   //请求幻化卡牌
+        LabCardEnhanceCmd_S     = 16;   //请求幻化卡牌回复
+        LabCardUseSkinCmd_C     = 17;   //请求使用皮肤
+        LabCardUseSkinCmd_S     = 18;   //请求使用皮肤回复
+        LabCardUseMountCmd_C    = 19;   //请求使用挂载
+        LabCardUseMountCmd_S    = 20;   //请求使用挂载回复
+        LabCardRecordSoundCmd_C = 21;   //请求记录卡牌录音
+        LabCardRecordSoundCmd_S = 22;   //请求记录卡牌录音回复
+    }
+}
+
+
+/*---------------------------------------------------
+---------------------游戏协议开始--------------------
+----------------------------------------------------*/
+
+// 1 获取实验室卡牌列表
+message GetLabCardDataCmd_C
+{
+
+}
+
+// 2 获取实验室卡牌列表回复
+message GetLabCardDataCmd_S
+{
+    optional uint32     errCode  = 1; //错误码，成功默认0
+    repeated CardData   cardData = 2; //玩家卡牌列表
+}
+
+// 3 获取实验室卡牌属性
+message GetLabCardAttributeCmd_C
+{
+    optional uint32 cardId = 1; //卡牌ID
+}
+
+// 4 获取实验室卡牌属性回复
+message GetLabCardAttributeCmd_S
+{
+    optional uint32               errCode   = 1; //错误码，成功默认0
+    optional LabCardAttributeData attrData  = 2; //卡牌属性
+} 
+
+// 5 获取实验室卡牌皮肤
+message GetLabCardSkinCmd_C
+{
+    optional uint32 cardId = 1; //卡牌ID
+}
+
+// 6 获取实验室卡牌皮肤回复
+message GetLabCardSkinCmd_S
+{
+    optional uint32         errCode  = 1; //错误码，成功默认0
+    repeated CardSkinData   skinData = 2; //卡牌皮肤列表
+}
+
+// 7 获取实验室卡牌挂载
+message GetLabCardMountCmd_C
+{
+    optional uint32 cardId = 1; //卡牌ID
+}
+
+// 8 获取实验室卡牌挂载回复
+message GetLabCardMountCmd_S
+{
+    optional uint32         errCode   = 1; //错误码，成功默认0
+    repeated CardMountData  mountData = 2; //卡牌挂载列表
+}
+
+// 9 获取实验室卡牌录音
+message GetLabCardRecordCmd_C
+{
+    optional uint32 cardId = 1; //卡牌ID
+}
+
+// 10 获取实验室卡牌录音回复
+message GetLabCardRecordCmd_S
+{
+    optional uint32         errCode    = 1; //错误码，成功默认0
+    repeated CardRecordData recordData = 2; //卡牌录音列表
+}
+
+// 11 获取实验室幻化果实
+message GetLabCardFruitCmd_C
+{
+
+}
+
+// 12 获取实验室幻化果实回复
+message GetLabCardFruitCmd_S
+{
+    optional uint32         errCode     = 1; //错误码，成功默认0
+    repeated CardFruitData  fruitData   = 2; //幻化果实列表
+    optional uint32         enhanceTimes= 3; //已幻化次数
+    optional uint32         totalTimes  = 4; //幻化总次数
+}
+
+// 13 请求升级卡牌
+message LabCardUpgradeCmd_C
+{
+    optional uint32 cardId = 1; //卡牌ID
+}
+
+// 14 请求升级卡牌回复
+message LabCardUpgradeCmd_S
+{
+    optional uint32                 errCode  = 1; //错误码，成功默认0
+    optional LabCardAttributeData   attrData = 2; //升级成功后卡牌属性
+}
+
+// 15 请求幻化卡牌
+message LabCardEnhanceCmd_C
+{
+    optional uint32 cardId  = 1; //卡牌ID
+    optional uint32 fruitId = 2; //果实ID
+}
+
+// 16 请求幻化卡牌回复
+message LabCardEnhanceCmd_S
+{
+    optional uint32                 errCode  = 1; //错误码，成功默认0
+    optional LabCardAttributeData   attrData = 2; //幻化成功后卡牌属性
+}
+
+// 17 请求使用皮肤
+message LabCardUseSkinCmd_C
+{
+    optional uint32 cardId  = 1; //卡牌ID
+    optional uint32 skinId  = 2; //皮肤ID
+}
+
+// 18 请求使用皮肤回复
+message LabCardUseSkinCmd_S
+{
+    optional uint32 errCode  = 1; //错误码，成功默认0
+}
+
+// 19 请求使用挂载
+message LabCardUseMountCmd_C
+{
+    optional uint32 cardId  = 1; //卡牌ID
+    optional uint32 mountId = 2; //挂载ID
+}
+
+// 20 请求使用挂载回复
+message LabCardUseMountCmd_S
+{
+    optional uint32 errCode  = 1; //错误码，成功默认0
+}
+
+// 21 请求记录卡牌录音
+message LabCardRecordSoundCmd_C
+{
+    optional uint32 cardId  = 1; //卡牌ID
+    optional string sound   = 2; //录音
+    optional uint32 recordId= 3; //录音部位ID
+}
+
+// 22 请求记录卡牌录音回复
+message LabCardRecordSoundCmd_S
+{
+    optional uint32 errCode  = 1; //错误码，成功默认0
+}

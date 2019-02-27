@@ -1,0 +1,54 @@
+package Cmd;
+import "dreamcommon.proto";
+
+message NbChat
+{
+    enum Param
+    {
+        ChatCommonCmd_C     = 1; //聊天
+        ChatCommonCmd_S     = 2; //聊天回复
+        ChatCommonCmd_Brd   = 3; //聊天广播
+        GetChatCommonCmd_C  = 4; //获取公共聊天
+        GetChatCommonCmd_S  = 5; //获取公共聊天回复
+    }
+}
+
+/*---------------------------------------------------
+---------------------游戏协议开始--------------------
+----------------------------------------------------*/
+
+// 1 聊天相关
+message ChatCommonCmd_C
+{
+    optional uint32     chatType    = 1; //聊天类型 ：1系统 2世界 3附近 CHAT_TYPE 
+    optional string     chatMsg     = 2; //聊天信息
+}
+ // 2
+message ChatCommonCmd_S
+{
+    optional uint32 errCode         = 1; //错误码，成功不返回
+}
+
+// 3 广播聊天数据
+message ChatCommonCmd_Brd
+{
+    optional uint32 chatType    = 1; //聊天类型 CHAT_TYPE 
+    optional string chatMsg     = 2; //聊天信息
+    optional uint64 timestamp   = 3; //聊天时间
+    optional uint64 uid         = 4; //玩家UID
+    optional string nickname    = 5; //玩家昵称
+    optional string gender      = 6; //玩家性别
+}
+
+// 4 获取公共聊天数据
+message GetChatCommonCmd_C
+{
+    optional uint32 chatType    = 1; //聊天类型 CHAT_TYPE
+}
+
+// 5 获取公共聊天回复
+message GetChatCommonCmd_S
+{
+    optional uint32 errCode                 = 1; //错误码，成功不返回
+    repeated CommonChatData commonChatData  = 2; //公共聊天数据
+}

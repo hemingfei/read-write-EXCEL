@@ -50,3 +50,5 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+tool_proto2excel/consoleProto2Excel/consoleProto2Excel/obj/
+tool_proto2excel/consoleProto2Excel/.vs/

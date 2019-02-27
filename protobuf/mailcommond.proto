@@ -1,0 +1,72 @@
+package Cmd;
+import "dreamcommon.proto";
+
+// 邮件相关协议
+message Mail
+{
+    enum Param
+    {
+        GetMailListCmd_C    = 1; //获取邮件列表
+        GetMailListCmd_S    = 2; //邮件列表回包
+        ReadMailCmd_C       = 3; //查阅邮件
+        ReadMailCmd_S       = 4; //邮件信息回包
+        DelReadMailCmd_C    = 5; //删除已读邮件
+        DelReadMailCmd_S    = 6; //删除已读邮件返回
+        DelMailCmd_C        = 7; //删除指定邮件
+        DelMailCmd_S        = 8; //删除指定邮件返回
+    }
+}
+
+
+/*---------------------------------------------------
+---------------------游戏协议开始--------------------
+----------------------------------------------------*/
+
+// 1 获取邮件列表
+message GetMailListCmd_C
+{
+
+}
+
+// 2 邮件列表回包
+message GetMailListCmd_S
+{
+    optional uint32         errCode     = 1; //错误码
+    repeated MailData       mailList    = 2;
+}
+
+// 3 查阅邮件
+message ReadMailCmd_C
+{
+    optional uint32     index   = 1; //邮件id
+}
+
+// 4 邮件信息回包
+message ReadMailCmd_S
+{
+    optional uint32     errCode     = 1; //错误码
+}
+
+// 5 删除已读邮件
+message DelReadMailCmd_C
+{
+
+}
+
+// 6 删除已读邮件返回
+message DelReadMailCmd_S
+{
+    optional uint32     errCode     = 1; //错误码
+}
+
+// 7 删除指定邮件
+message DelMailCmd_C
+{
+    optional uint32    index   = 1; //邮件id
+}
+
+// 8 删除指定邮件返回
+message DelMailCmd_S
+{
+    optional uint32    errCode     = 1; //错误码
+}

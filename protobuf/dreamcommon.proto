@@ -1,0 +1,199 @@
+package Cmd;
+
+/*---------------------------------------------------
+-------------------公共协议枚举类型------------------
+----------------------------------------------------*/
+
+// 聊天类型
+enum CHAT_TYPE 
+{
+    TYPE_SYSTEM     = 1; //系统聊天
+    TYPE_WORLD      = 2; //世界聊天
+    TYPE_NEARBY     = 3; //附近聊天
+}
+
+// 好友申请操作
+enum FRIEND_OPTION
+{
+    OPTION_AGREE    = 1; //同意好友申请
+    OPTION_REFUSE   = 2; //拒绝好友申请
+}
+
+
+
+/*---------------------------------------------------
+-------------------公共协议结构类型------------------
+----------------------------------------------------*/
+
+//用户基本信息
+message UserBaseData
+{
+   optional uint64 uid              = 1; //uid
+   optional string headurl          = 2; //头像
+   optional string nickname         = 3; //昵称
+   optional string gender           = 4; //性别
+   optional string signature        = 5; //签名
+   optional uint32 platid           = 6; //平台id
+   optional uint32 subplatid        = 7; //平台子id
+   optional string ip               = 8; //ip
+   optional string phonenumber      = 9; //手机号
+   optional string plataccount      = 10;//平台账户 
+   optional string email            = 11;//email
+   optional string osname           = 12;//osname
+   optional string imei             = 13;//imei
+   optional uint32 level            = 14;//等级
+   optional uint64 favour           = 15;//点赞数
+   optional uint32 mapid            = 16;//地图id
+   optional uint64 gold             = 17;//金币
+   optional uint64 gem              = 18;//宝石
+}
+
+
+// 公共聊天
+message CommonChatData
+{
+    optional uint32 chatType        = 1; //聊天类型
+    optional string chatMsg         = 2; //聊天信息
+    optional string nickname        = 3; //玩家昵称
+    optional string headurl         = 4; //玩家头像
+    optional uint64 uid             = 5; //玩家uid
+    optional uint64 timestamp       = 6; //时间戳
+}
+
+//商品信息
+message ShopData
+{
+    optional uint32 id              = 1; //商品ID
+    optional uint64 deadline        = 2; //到期时间
+}
+
+//好友信息
+message FriendData
+{
+    optional uint64 uid             = 1; //好友UID
+    optional string headurl         = 2; //好友头像
+    optional string gender          = 3; //好友性别
+    optional uint32 level           = 4; //好友段位
+    optional uint64 favour          = 5; //好友赞数
+    optional string nickname        = 6; //好友昵称
+}
+
+//点赞信息
+message FavourData
+{
+    optional uint64 uid             = 1; //点赞玩家UID
+    optional string headurl         = 2; //点赞玩家头像
+    optional string nickname        = 3; //点赞玩家昵称
+    optional uint64 timestamp       = 4; //点赞时间戳
+}
+
+// 好友聊天信息
+message FriendChatData
+{
+    optional uint64 uid             = 1; //玩家UID
+    optional uint64 fuid            = 2; //好友UID
+    optional uint64 timestamp       = 3; //聊天时间戳
+    optional string chatMsg         = 4; //聊天内容
+}
+
+// 好友申请信息
+message FriendApplyData
+{
+    optional string headurl         = 1; //申请人头像
+    optional string nickname        = 2; //申请人昵称
+    optional uint64 timestamp       = 3; //申请时间
+    optional string reason          = 4; //申请理由
+    optional uint64 applyuid        = 5; //申请人UID
+}
+
+// 玩家卡牌数据
+message CardData
+{
+    optional uint32 id              = 1; //卡牌ID
+    optional uint32 level           = 2; //卡牌等级
+    optional uint32 groupId         = 3; //卡组ID(0-背包库 非0-卡组ID)
+    optional uint32 handCardId      = 4; //手牌顺序(0-背包库 非0-卡组顺序ID)
+    optional uint32 inUseSkinId     = 5; //正在使用的皮肤ID
+}
+
+// 卡牌基本属性 战斗和实验室公用
+message CardProperty
+{
+    optional uint32 id              = 1; //卡牌ID
+    optional uint32 gradeIndex      = 2; //等级
+    optional uint32 hp              = 3; //生命值
+    optional uint32 attack          = 4; //攻击力
+    optional uint32 moveSpeed       = 5; //移动速度
+    optional uint32 attackRange     = 6; //射程
+    optional uint32 attackSpeed     = 7; //攻击速度
+    optional uint32 target          = 8; //目标
+}
+
+// 卡牌技能属性 定为结构 方便扩展
+message CardSkillData
+{
+    optional uint32 skillId = 1; //技能ID
+}
+
+// 卡牌梦境碎片 定为结构 方便扩展
+message CardFragmentData
+{
+    optional uint32 fragId      = 1; //碎片ID
+    optional uint32 haveFragNum = 2; //已经拥有碎片数量
+    optional uint32 NeedFragNum = 3; //升级所需碎片数量
+}
+
+// 卡牌皮肤属性 定位结构 方便扩展
+message CardSkinData
+{
+    optional uint32 skinId  = 1; //皮肤ID
+    optional bool   isHave  = 2; //是否拥有
+    optional bool   isUsed  = 3; //是否使用
+}
+
+// 卡牌挂载属性 定为结构 方便扩展
+message CardMountData
+{
+    optional uint32 mountId = 1; //挂载部位ID
+    optional bool   isUsed  = 2; //是否使用
+}
+
+// 卡牌录音属性 定为结构 方便扩展
+message CardRecordData
+{
+    optional uint32 recordId = 1; //录音部位ID
+    optional string sound    = 2; //录音
+}
+
+// 卡牌幻化果实属性
+message CardFruitData
+{
+    optional uint32 fruitId     = 1; //果实ID
+    optional uint32 fruitNum    = 2; //果实数量
+}
+
+// 实验室卡牌属性
+message LabCardAttributeData
+{
+    optional CardProperty       baseData    = 1; //卡牌基本属性
+    repeated CardSkillData      skillData   = 2; //卡牌技能属性
+    optional CardFragmentData   fragData    = 3; //卡牌碎片属性
+}
+
+// 房间战斗卡牌属性
+message UserCardProperty
+{
+    optional uint32         seatId          = 1; //位置ID
+    repeated CardProperty   cardProperty    = 2; 
+}
+
+// 邮件结构
+message MailData
+{
+    optional uint32       index       = 1; //邮件下标
+    optional uint32       timestamp   = 2; //邮件创建时间戳
+    optional uint32       status      = 3; //邮件读取状态
+    optional string       title       = 4; //邮件标题
+    optional string       content     = 5; //邮件内容
+    repeated uint32       binding     = 6; //邮件绑定奖励
+}
